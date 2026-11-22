@@ -1,0 +1,36 @@
+# Environments
+venv/
+env/
+ENV/
+.venv/
+
+# Python cache & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Environment variables & secrets
+.env
+*.local.env
+
+# Logs and runtime databases
+*.log
+*.sqlite3
+*.tmp
+*.temp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary archives
+dataset/unzipped_archive/
+*.zip

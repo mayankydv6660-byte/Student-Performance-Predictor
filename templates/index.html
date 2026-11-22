@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Performance Predictor • Multi-Outcome AI System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .outcome-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-top: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        .outcome-box span {
+            display: block;
+            color: #64748b;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .outcome-box strong {
+            font-size: 14px;
+            color: #1e1b4b;
+        }
+        .factors-container {
+            margin-top: 18px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 14px;
+        }
+        .factors-container h4 {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #6366f1;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .factors-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .factors-list li {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #334155;
+            background: #f1f5f9;
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+        .factors-list li strong {
+            color: #4f46e5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="logo">
+            <div class="logo-icon">SP</div>
+
+            <div>
+                <h2>Student Performance</h2>
+                <span>AI Prediction System • By Mayank Yadav & Shrey Bohra</span>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <a href="/history" class="history-button">
+                📊 Prediction History
+            </a>
+
+            <a href="/analytics" class="history-button">
+                📈 Analytics Dashboard
+            </a>
+        </div>
+
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            AI Multi-Outcome Model Online
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <section class="hero">
+
+            <div>
+                <span class="badge">AI • PREDICTIVE MODELING FRAMEWORK</span>
+
+                <h1>
+                    Student Predictor
+                    <span>System</span>
+                </h1>
+
+                <p>
+                    Essential Data Points & Questions to Predict Academic Performance, Dropout Risk, 
+                    Placement Success, and Remedial Support Needs.
+                </p>
+            </div>
+
+        </section>
+
+
+        <section class="dashboard">
+
+            <div class="form-card">
+
+                <div class="card-header">
+                    <div>
+                        <h2>Student Assessment Profile</h2>
+                        <p>Fill in the 3 pillar dimensions (15 questions) to generate multi-outcome AI predictions.</p>
+                    </div>
+
+                    <div class="step-number">01</div>
+                </div>
+
+
+                <form id="predictionForm">
+
+                    <div class="input-group" style="margin-bottom: 24px;">
+                        <label>Student Name</label>
+                        <input
+                            type="text"
+                            id="student_name"
+                            placeholder="Enter student full name"
+                            required
+                        >
+                    </div>
+
+                    <!-- 1. ACADEMIC & PAST PERFORMANCE -->
+                    <div class="section-title">
+                        <span>01</span>
+                        Academic & Past Performance
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="input-group">
+                            <label>1. Current/Past CGPA (Scale: 0.0 - 10.0)</label>
+                            <input
+                                type="number"
+                                id="cgpa"
+                                step="0.1"
+                                min="0"
+                                max="10"
+                                placeholder="e.g. 8.2"
+                                required
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label>2. Attendance Percentage (50% - 100%)</label>
+                            <input
+                                type="number"
+                                id="attendance"
+                                min="50"
+                                max="100"
+                                step="0.5"
+                                placeholder="e.g. 88"
+                                required
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label>3. Recent Quiz & Assignment Score (Scale: 0.0 - 10.0)</label>
+                            <input
+                                type="number"
+                                id="quiz_score"
+                                min="0"
+                                max="10"
+                                step="0.1"
+                                placeholder="e.g. 7.5"
+                                required
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label>4. Active or Previous Backlogs</label>
+                            <select id="backlogs" required>
+                                <option value="" disabled selected>-- Select Backlogs --</option>
+                                <option value="0">0 (No Backlogs)</option>
+                                <option value="1">1 Backlog</option>
+                                <option value="2">2 Backlogs</option>
+                                <option value="3">3 Backlogs</option>
+                                <option value="4">4 or more Backlogs</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group" style="grid-column: span 2;">
+                            <label>5. Entrance / Prior Standardized Test Score (Scale: 0.0 - 10.0)</label>
+                            <input
+                                type="number"
+                                id="entrance_score"
+                                min="0"
+                                max="10"
+                                step="0.1"
+                                placeholder="e.g. 7.8"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <!-- 2. STUDY HABITS & ENGAGEMENT -->
+                    <div class="section-title">
+                        <span>02</span>
+                        Study Habits & Engagement
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="input-group">
+                            <label>6. Daily Self-Study Hours (1 - 8 hrs)</label>
+                            <input
+                                type="number"
+                                id="study_hours"
+                                step="0.5"
+                                min="1"
+                                max="8"
+                                placeholder="e.g. 4.0"
+                                required
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label>7. LMS & Study Portal Usage Frequency</label>
+                            <select id="lms_usage" required>
+                                <option value="" disabled selected>-- Select LMS Usage --</option>
+                                <option value="1">1 - Never / Rare</option>
+                                <option value="2">2 - Low (Monthly)</option>
+                                <option value="3">3 - Moderate (1-2 days/wk)</option>
+                                <option value="4">4 - High (3-5 days/wk)</option>
+                                <option value="5">5 - Always (Daily Active)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>8. Class Participation & Question Asking</label>
+                            <select id="class_participation" required>
+                                <option value="" disabled selected>-- Select Participation --</option>
+                                <option value="1">1 - Passive / Rarely speaks</option>
+                                <option value="2">2 - Low participation</option>
+                                <option value="3">3 - Moderate participation</option>
+                                <option value="4">4 - Active participant</option>
+                                <option value="5">5 - Highly engaged leader</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>9. Weekly Extracurricular Activities (0 - 10 hrs)</label>
+                            <input
+                                type="number"
+                                id="extra_activities"
+                                step="0.5"
+                                min="0"
+                                max="10"
+                                placeholder="e.g. 3.0"
+                                required
+                            >
+                        </div>
+
+                        <div class="input-group" style="grid-column: span 2;">
+                            <label>10. Study Style</label>
+                            <select id="study_style" required>
+                                <option value="" disabled selected>-- Select Study Style --</option>
+                                <option value="0">Individual (Solo Study)</option>
+                                <option value="1">Peer Groups (Collaborative Study)</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                    <!-- 3. BEHAVIORAL & LIFESTYLE FACTORS -->
+                    <div class="section-title">
+                        <span>03</span>
+                        Behavioral & Lifestyle Factors
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="input-group">
+                            <label>11. Average Sleep Hours (5 - 9 hrs)</label>
+                            <input
+                                type="number"
+                                id="sleep_hours"
+                                step="0.5"
+                                min="5"
+                                max="9"
+                                placeholder="e.g. 7.0"
+                                required
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label>12. Daily Non-Academic Screen Time (1 - 8 hrs)</label>
+                            <input
+                                type="number"
+                                id="screen_time"
+                                step="0.5"
+                                min="1"
+                                max="8"
+                                placeholder="e.g. 3.0"
+                                required
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label>13. Stress & Motivation Level</label>
+                            <select id="stress_level" required>
+                                <option value="" disabled selected>-- Select Stress Level --</option>
+                                <option value="1">1 - Very Low Stress / High Motivation</option>
+                                <option value="2">2 - Low Stress / Good Motivation</option>
+                                <option value="3">3 - Moderate Stress / Balanced</option>
+                                <option value="4">4 - High Stress / Low Motivation</option>
+                                <option value="5">5 - Severe Stress / Burnout</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>14. Procrastination Tendency</label>
+                            <select id="procrastination" required>
+                                <option value="" disabled selected>-- Select Procrastination Level --</option>
+                                <option value="1">1 - Never (Always submit early)</option>
+                                <option value="2">2 - Rarely (Mostly on time)</option>
+                                <option value="3">3 - Sometimes (Occasional rush)</option>
+                                <option value="4">4 - Often (Frequent late submissions)</option>
+                                <option value="5">5 - Always (Chronic procrastination)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group" style="grid-column: span 2;">
+                            <label>15. Physical Health & Well-being</label>
+                            <select id="health_status" required>
+                                <option value="" disabled selected>-- Select Health Status --</option>
+                                <option value="4">4 - Excellent (Energetic & physically active)</option>
+                                <option value="3">3 - Good (Generally fit & healthy)</option>
+                                <option value="2">2 - Fair (Occasional fatigue / minor issues)</option>
+                                <option value="1">1 - Poor (Frequent illness / low energy)</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button type="reset" class="reset-btn">
+                            Clear Form
+                        </button>
+
+                        <button type="submit" class="predict-btn">
+                            Predict Multi-Outcomes
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- RESULT CARD -->
+            <aside class="result-card">
+
+                <div class="result-header">
+
+                    <div>
+                        <span class="small-label">AI ANALYSIS • MAYANK YADAV & SHREY BOHRA</span>
+                        <h2>Prediction Result</h2>
+                    </div>
+
+                    <div class="ai-icon">AI</div>
+
+                </div>
+
+
+                <div id="resultPlaceholder" class="result-placeholder">
+
+                    <div class="result-icon">
+                        ✦
+                    </div>
+
+                    <h3>Ready to Predict</h3>
+
+                    <p>
+                        Fill in all 15 questions across the 3 pillars and click
+                        <strong>Predict Multi-Outcomes</strong>.
+                    </p>
+
+                </div>
+
+
+                <div id="resultContent" class="result-content hidden">
+
+                    <div class="grade-circle">
+
+                        <span id="gradeValue">--</span>
+
+                        <small>/ 20 Projected Grade</small>
+
+                    </div>
+
+
+                    <div class="performance-box">
+
+                        <span>Academic Performance Level</span>
+
+                        <strong id="performanceValue">
+                            --
+                        </strong>
+
+                    </div>
+
+                    <!-- PREDICTIVE MODEL OUTCOMES -->
+                    <div class="outcome-box">
+                        <span>⚠️ Dropout / At-Risk Detection</span>
+                        <strong id="dropoutRiskValue">--</strong>
+                    </div>
+
+                    <div class="outcome-box">
+                        <span>💼 Placement & Career Readiness</span>
+                        <strong id="placementValue">--</strong>
+                    </div>
+
+                    <div class="outcome-box">
+                        <span>🎯 Remedial & Support Needs</span>
+                        <strong id="remedialValue">--</strong>
+                    </div>
+
+                    <!-- TOP KEY INFLUENCING FACTORS -->
+                    <div class="factors-container">
+                        <h4>Top Influencing Factors</h4>
+                        <ul id="topFactorsList" class="factors-list">
+                        </ul>
+                    </div>
+
+                    <div class="model-info">
+
+                        <div>
+                            <span>Model</span>
+                            <strong id="modelValue">
+                                Random Forest (Multi-Outcome)
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Database</span>
+                            <strong>MySQL Active</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div id="loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Analyzing 15-dimensional indicators...</p>
+                </div>
+
+
+                <div id="errorMessage" class="error hidden"></div>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            Student Predictor System •
+            AI/ML Academic Framework
+        </p>
+
+        <p>
+            Random Forest Regressor • Flask REST API • MySQL
+        </p>
+
+    </footer>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
